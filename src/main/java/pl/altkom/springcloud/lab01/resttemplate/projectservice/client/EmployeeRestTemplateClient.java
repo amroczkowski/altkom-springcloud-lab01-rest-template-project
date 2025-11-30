@@ -18,7 +18,7 @@ import pl.altkom.springcloud.lab01.resttemplate.projectservice.configuration.Pro
 
 @RequiredArgsConstructor
 @Service
-public class EmployeeClient {
+public class EmployeeRestTemplateClient {
 
     private static final String GET_PROJECT_EMPLOYEES = "/employee/project/{projectId}";
     private static final String GET_ALL_EMPLOYEES = "/employee";

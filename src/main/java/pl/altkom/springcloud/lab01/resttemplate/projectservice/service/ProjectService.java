@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
-import pl.altkom.springcloud.lab01.resttemplate.projectservice.client.EmployeeClient;
-import pl.altkom.springcloud.lab01.resttemplate.projectservice.client.EmployeeWebClient;
+import pl.altkom.springcloud.lab01.resttemplate.projectservice.client.EmployeeRestTemplateClient;
 import pl.altkom.springcloud.lab01.resttemplate.projectservice.controller.mapper.RequestMapper;
 import pl.altkom.springcloud.lab01.resttemplate.projectservice.controller.mapper.ResponseMapper;
 import pl.altkom.springcloud.lab01.resttemplate.projectservice.controller.model.CreateProjectRequest;
@@ -21,8 +20,9 @@ import pl.altkom.springcloud.lab01.resttemplate.projectservice.repository.Projec
 @Service
 public class ProjectService {
 
-    private final EmployeeClient employeeClient;
+    private final EmployeeRestTemplateClient employeeClient;
 //    private final EmployeeWebClient employeeClient;
+//    private final EmployeeRestClient employeeClient;
     private final ProjectRepository projectRepository;
 
     public List<Project> getProjects() {
@@ -40,7 +40,7 @@ public class ProjectService {
         return ResponseMapper.map(project, employees);
     }
 
-    public Project addProject(final CreateProjectRequest request) {
+    public Project createProject(final CreateProjectRequest request) {
         final pl.altkom.springcloud.lab01.resttemplate.projectservice.repository.model.Project savedProject = projectRepository.save(
                 RequestMapper.bind(request));
         final List<Employee> employees = pl.altkom.springcloud.lab01.resttemplate.projectservice.client.mapper.ResponseMapper.map(
